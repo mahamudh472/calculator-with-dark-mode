@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="main-container">
+        <div class="calculator">
+            <div class="cal-top">
+                <div class="dark-btn">
+                    <div class="btn"></div>
+                </div>
+                Switch to Dark
+            </div>
+            <div class="result-container">
+                <div class="equation">45 x 24</div>
+                <div class="result">1028</div>
+            </div>
+            <hr>
+
+            <div class="cal-mid">
+                <i class="fa fa-delete-left" id="delete" style="padding: 5px;"></i>
+            </div>
+
+            <div class="btn-container">
+                <input type="button" class="btn-type-1" value="C">
+                <input type="button" class="btn-type-1" value="( )">
+                <input type="button" class="btn-type-1" value="%">
+                <input type="button" class="btn-type-2" value="/">
+                <input type="button" class="btn-type-3" value="7">
+                <input type="button" class="btn-type-3" value="8">
+                <input type="button" class="btn-type-3" value="9">
+                <input type="button" class="btn-type-2" value="x">
+                <input type="button" class="btn-type-3" value="4">
+                <input type="button" class="btn-type-3" value="5">
+                <input type="button" class="btn-type-3" value="6">
+                <input type="button" class="btn-type-2" value="-">
+                <input type="button" class="btn-type-3" value="1">
+                <input type="button" class="btn-type-3" value="2">
+                <input type="button" class="btn-type-3" value="3">
+                <input type="button" class="btn-type-2" value="+">
+                <input type="button" class="btn-type-3" value="+/-">
+                <input type="button" class="btn-type-3" value="0">
+                <input type="button" class="btn-type-3" value=".">
+                <input type="button" value="=">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        $(document).ready(function(){
+            var equation = "";
+            var result = 0
+            var tempEquation = equation;
+            $("input[type='button']").click(function(){
+                if(this.value=="C"){
+                    equation = ""
+                    result = 0
+                    update()
+                }else if (this.value== "+"||"-"||"x"||"/"||"="){
+                    if (this.value=="="){
+                    result = eval(equation.replace('x', '*'))
+                    update()
+                    }else if(this.value=="+"||"-"||"x"||"/"){
+                        equation += this.value
+                    }
+                }
+                else{
+                    equation += this.value
+                }
+                
+                update()
+            })
+            function update(){
+                $(".equation").text(equation);
+                $(".result").text(result)
+            }
+            
+            update()
+
+            
+        })
+</script>
+</html>
