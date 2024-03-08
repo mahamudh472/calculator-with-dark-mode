@@ -14,16 +14,17 @@
                 <div class="dark-btn">
                     <div class="btn"></div>
                 </div>
-                Switch to Dark
+                <span>Switch to Dark</span>
+                
             </div>
             <div class="result-container">
-                <div class="equation">45 x 24</div>
-                <div class="result">1028</div>
+                <div class="equation"></div>
+                <div class="result"></div>
             </div>
             <hr>
 
             <div class="cal-mid">
-                <i class="fa fa-delete-left" id="delete" style="padding: 5px;"></i>
+                <i class="fa fa-delete-left del-text" id="delete" style="padding: 5px;"></i>
             </div>
 
             <div class="btn-container">
@@ -57,6 +58,8 @@
             var equation = "";
             var result = 0
             var tempEquation = equation;
+            let darkMode = false;
+
             $("input[type='button']").click(function(){
                 if(this.value=="C"){
                     equation = ""
@@ -64,7 +67,7 @@
                     update()
                 }else if (this.value== "+"||"-"||"x"||"/"||"="){
                     if (this.value=="="){
-                    result = eval(equation.replace('x', '*'))
+                    result = eval(equation.replace('x', '*').replace('%', '/100'))
                     update()
                     }else if(this.value=="+"||"-"||"x"||"/"){
                         equation += this.value
@@ -76,6 +79,25 @@
                 
                 update()
             })
+            $("#delete").click(function(){
+                equation = equation.slice(0, -1)
+                update()
+            })
+            // dark mode
+            $(".dark-btn").click(function(){
+                $(".main-container").toggleClass("dark")
+                $(".btn").toggleClass("dark")
+                $("input[type='button']").toggleClass("dark")
+                $(".calculator").toggleClass("dark")
+                if(darkMode){
+                    $(".cal-top span").text("Switch to Dark")
+                    darkMode = false
+                }else{
+                    $(".cal-top span").text("Switch to Light")
+                    darkMode = true
+                }
+            })
+
             function update(){
                 $(".equation").text(equation);
                 $(".result").text(result)
